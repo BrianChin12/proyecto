@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Actualizar Producto</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/vendors/mdi/css/materialdesignicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/vendors/css/vendor.bundle.base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/images/favicon.ico}"/>
+
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <!-- End layout styles -->
+</head>
+<body>
+
+
+<div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo" href="/"><img th:src="@{/images/liquis/logo.png}" alt="logo" class="h-100" /></a>
+            <a class="navbar-brand brand-logo-mini" href="/"><img th:src="@{/images/liquis/minilogo.png}" alt="logo" class="h-100"/></a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                <span class="mdi mdi-menu"></span>
+            </button>
+
+            <div class="col-sm-7 align-self-center text-center" style="font-family:'Arial Black'; font-weight: 900; color:#582580; font-size: large">
+                CONTROL DE INVENTARIO Y EMPLEADOS LIQUIS
+            </div>
+
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile dropdown">
+                    <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-profile-img">
+                            <img th:src="@{/images/faces-clipart/pic-2.png}" alt="image">
+                            <span class="availability-status online"></span>
+                        </div>
+                        <div class="nav-profile-text">
+                            <p class="mb-1 text-black" th:text="${user}"></p>
+                        </div>
+                    </a>
+
+
+                    <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                        <a class="dropdown-item" th:href="@{/logout}"  href="/logout">
+                            <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                    </div>
+                </li>
+
+
+
+                <li class="nav-item nav-logout d-none d-lg-block">
+                    <a class="nav-link" th:href="@{/logout}"  href="/logout">
+                        <i class="mdi mdi-power"></i>
+                    </a>
+                </li>
+
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                <span class="mdi mdi-menu"></span>
+            </button>
+        </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item nav-profile border-top">
+                    <a href="#" class="nav-link">
+                        <div class="nav-profile-image">
+                            <img th:src="@{/images/faces-clipart/pic-2.png}" alt="profile">
+                            <span class="login-status online"></span>
+                            <!--change to offline or busy as needed-->
+                        </div>
+                        <div class="nav-profile-text d-flex flex-column">
+                            <span class="font-weight-bold mb-2"th:text="${user}"></span>
+                            <span class="text-secondary text-small">Actualmente Activo</span>
+                        </div>
+                        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+                    </a>
+                </li>
+                <li class="nav-item border-top">
+                    <a class="nav-link" href="/">
+                        <span class="menu-title">Farmacia</span>
+                        <i class="mdi mdi-pill menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item border-top active">
+                    <a class="nav-link" href="/Autoservicio">
+                        <span class="menu-title">Autoservicio</span>
+                        <i class="mdi mdi-cart menu-icon"></i>
+                    </a>
+                </li>
+                <li class="nav-item border-top">
+                    <a class="nav-link" href="/Empleado">
+                        <span class="menu-title">Empleados</span>
+                        <i class="mdi mdi-human-greeting menu-icon"></i>
+                    </a>
+                </li>
+
+
+                <li class="nav-item nav-profile-image border-top">
+                    <div>
+                        <img th:src="@{/images/liquis/empleado.png}" alt="logo" class="h-auto w-100"/>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title"> Editar Producto</h6>
+                                <form action="#" th:action="@{/ActualizarAutoservicio/{id}(id=${producto.id})}" th:object="${producto}" method="post">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label for="name" class="col-form-label">Producto</label>
+                                            <input type="text" th:field="*{nombre}" class="form-control" id="name" placeholder="Nombre del producto">
+                                            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="categoria" class="col-form-label">Categoria</label>
+                                            <input type="text" th:field="*{categoria}" class="form-control" id="categoria" placeholder="Categoria perteneciente">
+                                            <span th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="precio" class="col-form-label">Precio</label>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text bg-gradient-primary text-white">$</span>
+                                                <input type="text" th:field="*{precio}" class="form-control" id="precio" placeholder="Precio a vender $">
+                                                <span th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="cantidad" class="col-form-label">Cantidad</label>
+                                            <input type="text" th:field="*{cantidad}" class="form-control" id="cantidad" placeholder="Cantidad en Stock">
+                                            <span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="col-md-6 align-items-center align-self-center text-center">
+                                            <input type="submit" class="btn btn-gradient-primary" value="Actualizar Producto">
+                                            <a class="btn btn-gradient-light" href="/Autoservicio"> Cancelar</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <footer class="footer">
+                <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://liquismexico.com/" target="_blank">Liquis</a>. All rights reserved.</span>
+                    <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+                </div>
+            </footer>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+
+<script type="text/javascript" th:src="@{/vendors/js/vendor.bundle.base.js}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script type="text/javascript" th:src="@{/js/off-canvas.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/hoverable-collapse.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/misc.js}"></script>
+
+<!-- endinject -->
+<!-- Custom js for this page -->
+
+<!-- End custom js for this page -->
+</body>
+</html>
